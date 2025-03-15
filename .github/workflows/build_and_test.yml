@@ -24,7 +24,7 @@ jobs:
     - name: Unshallow
       run: git fetch --unshallow
     - name: Run sonarscanner
-      run: dotnet sonarscanner begin /k:"BrunaPisera_postech-tc-acompanhamento" /o:"bruna-org" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.xml /d:sonar.verbose=true
+      run: dotnet sonarscanner begin /k:"BrunaPisera_postech-tc-upload" /o:"bruna-org" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.xml /d:sonar.verbose=true
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
