@@ -2,6 +2,7 @@ using Amazon.S3.Transfer;
 using Amazon.S3;
 using Microsoft.AspNetCore.Mvc;
 using Amazon;
+using Pedidos.Infrastructure.Broker;
 
 namespace Upload.API.Controllers
 {
@@ -10,10 +11,19 @@ namespace Upload.API.Controllers
     public class UploadController : ControllerBase
     {
         private readonly ILogger<UploadController> _logger;
+        private readonly IBrokerPublisher BrokerPublisher;
+        private readonly string Exchange = "videoOperations";
 
+        public UploadController(ILogger<UploadController> logger, IBrokerPublisher brokerPublisher)
+        {
+            _logger = logger;
+            BrokerPublisher = brokerPublisher;
+        }
+    
         [HttpPost]
         public async Task<IActionResult> UploadVideo(List<IFormFile> video)
         {
+            
             if (video.Count > 3)
                 return BadRequest();
 
@@ -26,7 +36,11 @@ namespace Upload.API.Controllers
                     return;
                 }
 
-                UploadFileToS3(x);
+                var videoFileName = Guid.NewGuid() + Path.GetExtension(x.FileName).ToLower();
+             
+                await UploadFileToS3(x, videoFileName);
+
+                BrokerPublisher.PublishMessage(Exchange, videoFileName);
             });
 
             if (error)
@@ -37,9 +51,11 @@ namespace Upload.API.Controllers
             return Ok(new { Message = "Video uploaded successfully." });
         }
 
-        private async Task UploadFileToS3(IFormFile file)
+        private async Task UploadFileToS3(IFormFile file, string videoFileName)
         {
-            using (var client = new AmazonS3Client("yourAwsAccessKeyId", "yourAwsSecretAccessKey", "acessToken", RegionEndpoint.USEast1))
+            using (var client = new AmazonS3Client("", "",
+                 "",
+                 RegionEndpoint.USEast1))
             {
                 using (var newMemoryStream = new MemoryStream())
                 {
@@ -48,7 +64,7 @@ namespace Upload.API.Controllers
                     var uploadRequest = new TransferUtilityUploadRequest
                     {
                         InputStream = newMemoryStream,
-                        Key = file.FileName,
+                        Key = $"videos/{videoFileName}",
                         BucketName = "videouploadtc",
                         CannedACL = S3CannedACL.Private
                     };
