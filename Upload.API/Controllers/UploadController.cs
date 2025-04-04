@@ -12,12 +12,14 @@ namespace Upload.API.Controllers
     {
         private readonly ILogger<UploadController> _logger;
         private readonly IBrokerPublisher BrokerPublisher;
+        private readonly IConfiguration _configuration;
         private readonly string Exchange = "videoOperations";
 
-        public UploadController(ILogger<UploadController> logger, IBrokerPublisher brokerPublisher)
+        public UploadController(ILogger<UploadController> logger, IBrokerPublisher brokerPublisher, IConfiguration configuration)
         {
             _logger = logger;
             BrokerPublisher = brokerPublisher;
+            _configuration = configuration;
         }
     
         [HttpPost]
@@ -53,9 +55,10 @@ namespace Upload.API.Controllers
 
         private async Task UploadFileToS3(IFormFile file, string videoFileName)
         {
-            using (var client = new AmazonS3Client("", "",
-                 "",
-                 RegionEndpoint.USEast1))
+            using (var client = new AmazonS3Client(_configuration["Aws:AwsAccessKeyId"],
+                                                _configuration["Aws:AwsSecretAccessKey"],
+                                                _configuration["Aws:AwsSessionToken"],
+                                                RegionEndpoint.USEast1))
             {
                 using (var newMemoryStream = new MemoryStream())
                 {

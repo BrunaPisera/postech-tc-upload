@@ -26,7 +26,13 @@ namespace Pedidos.Infrastructure.Broker
                                          autoDelete: false);
                 
                 var body = Encoding.UTF8.GetBytes(message);
-                
+
+                channel.QueueDeclare("videoToProcess", true, false, false, null);
+
+                channel.QueueBind(queue: "videoToProcess",
+                                    exchange: exchange,
+                                    routingKey: "");
+
                 channel.BasicPublish(exchange: exchange,
                                      routingKey: "",
                                      basicProperties: null,

@@ -1,4 +1,5 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client;
 
 namespace Pedidos.Infrastructure.Broker
 {
@@ -12,27 +13,26 @@ namespace Pedidos.Infrastructure.Broker
     {
         private readonly IConnection _connection;
 
-        public BrokerConnection()
+        public BrokerConnection(IConfiguration configuration)
         {
-            //var hostName = Environment.GetEnvironmentVariable("BROKER_HOSTNAME");
-            //var portString = Environment.GetEnvironmentVariable("BROKER_PORT");         
+            var hostName = configuration["Broker:HostName"];
+            var portString = configuration["Broker:Port"];
+            var userName = configuration["Broker:UserName"];
+            var password = configuration["Broker:Password"];
+            var virtualHost = configuration["Broker:VirtualHost"];
 
-            //if (string.IsNullOrEmpty(portString) || !int.TryParse(portString, out var port))
-            //{
-            //    throw new ArgumentException("A variável de ambiente BROKER_PORT é inválida ou não está definida.");
-            //}
-
-            //var userName = Environment.GetEnvironmentVariable("BROKER_USERNAME");
-            //var password = Environment.GetEnvironmentVariable("BROKER_PASSWORD");
-            //var virtualHost = Environment.GetEnvironmentVariable("BROKER_VIRTUALHOST");
+            if (!int.TryParse(portString, out var port))
+            {
+                throw new ArgumentException("Porta inválida ou não definida.");
+            }
 
             var factory = new ConnectionFactory
             {
-                HostName = "",
-                Port = 5672,
-                UserName = "",
-                Password = "",
-                VirtualHost = ""
+                HostName = hostName,
+                Port = port,
+                UserName = userName,
+                Password = password,
+                VirtualHost = virtualHost
             };
 
             _connection = factory.CreateConnection();
