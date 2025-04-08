@@ -42,7 +42,7 @@ namespace Upload.API.Controllers
              
                 await UploadFileToS3(x, videoFileName);
 
-                BrokerPublisher.PublishMessage(Exchange, videoFileName);
+                BrokerPublisher.PublishMessage(Exchange, videoFileName, "video.uploaded");
             });
 
             if (error)
