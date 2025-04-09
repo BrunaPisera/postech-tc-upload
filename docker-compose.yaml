@@ -16,5 +16,6 @@ services:
       - Aws__AwsAccessKeyId=${AWS_ACCESS_KEY_ID}
       - Aws__AwsSecretAccessKey=${AWS_SECRET_ACCESS_KEY}
       - Aws__AwsSessionToken=${AWS_SESSION_TOKEN}
+      - Aws__BucketName=${AWS_BUCKET_NAME}
     env_file:
       - .env

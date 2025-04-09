@@ -1,4 +1,4 @@
-using Upload.Infrastructure;
+using Upload.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfrastructure();
+// Add Upload services
+builder.Services.AddUploadServices();
 
 var app = builder.Build();
 
