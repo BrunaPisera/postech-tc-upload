@@ -28,12 +28,12 @@ namespace Pedidos.Infrastructure.Broker
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.QueueDeclare("videoToProcess", true, false, false, null);
-                channel.QueueDeclare("videoStatus", true, false, false, null);
+                channel.QueueDeclare("videoStatus.Upload", true, false, false, null);
 
                 channel.QueueBind(queue: "videoToProcess",
                                     exchange: exchange,
                                     routingKey: routingKey);
-                channel.QueueBind(queue: "videoStatus",
+                channel.QueueBind(queue: "videoStatus.Upload",
                                     exchange: exchange,
                                     routingKey: routingKey);
 
