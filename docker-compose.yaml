@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  upload-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7600:80"
+    environment:
+      - Broker__HostName=${BROKER_HOSTNAME}
+      - Broker__Port=${BROKER_PORT}
+      - Broker__UserName=${BROKER_USERNAME}
+      - Broker__Password=${BROKER_PASSWORD}
+      - Broker__VirtualHost=${BROKER_VIRTUALHOST}
+      - Aws__AwsAccessKeyId=${AWS_ACCESS_KEY_ID}
+      - Aws__AwsSecretAccessKey=${AWS_SECRET_ACCESS_KEY}
+      - Aws__AwsSessionToken=${AWS_SESSION_TOKEN}
+      - Aws__BucketName=${AWS_BUCKET_NAME}
+    env_file:
+      - .env
