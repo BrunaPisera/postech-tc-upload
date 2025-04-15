@@ -1,0 +1,19 @@
+namespace: dev
+
+# API
+apiName: upload-api
+apiImage: 
+  name: brunapisera/upload-api
+  tag: latest
+apiNodePort: 30200
+
+# Secret
+secret:
+  name: secret
+
+rabbitmq:
+  username: xtpbliuz 
+  hostname: woodpecker-01.rmq.cloudamqp.com
+  password: 
+  port: 5672
+  virtualhost: xtpbliuz

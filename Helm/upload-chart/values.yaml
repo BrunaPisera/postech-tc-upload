@@ -1,0 +1,24 @@
+namespace: default
+
+# API
+apiName: upload-api
+apiImage: 
+  name: brunapisera/upload-api
+  tag: latest
+apiNodePort: 30200
+
+# Config map
+configmap:
+  name: upload-config-map
+  data:
+
+rabbitmq:
+  username: xtpbliuz 
+  hostname: woodpecker-01.rmq.cloudamqp.com
+  password: 
+  port: 5672
+  virtualhost: xtpbliuz
+
+# Secret
+secret:
+  name: secret
