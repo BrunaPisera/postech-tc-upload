@@ -8,11 +8,11 @@ namespace Upload.API.Controllers
     public class UploadController : ControllerBase
     {
         private readonly ILogger<UploadController> _logger;
-        private readonly UploadVideoUseCase _uploadVideoUseCase;
+        private readonly IUploadVideoUseCase _uploadVideoUseCase;
 
         public UploadController(
             ILogger<UploadController> logger,
-            UploadVideoUseCase uploadVideoUseCase)
+            IUploadVideoUseCase uploadVideoUseCase)
         {
             _logger = logger;
             _uploadVideoUseCase = uploadVideoUseCase;

@@ -4,7 +4,12 @@ using Upload.Domain.Interfaces;
 
 namespace Upload.Application.UseCases.UploadVideo
 {
-    public class UploadVideoUseCase
+    public interface IUploadVideoUseCase
+    {
+        Task<UploadVideoResult> ExecuteAsync(IFormFile video);
+    }
+
+    public class UploadVideoUseCase : IUploadVideoUseCase
     {
         private readonly IVideoStorage _videoStorage;
         private readonly IMessageBroker _messageBroker;
