@@ -11,7 +11,7 @@ namespace Upload.API
         public static IServiceCollection AddUploadServices(this IServiceCollection services)
         {
             // Application Layer
-            services.AddScoped<UploadVideoUseCase>();
+services.AddScoped<IUploadVideoUseCase, UploadVideoUseCase>();
 
             // Infrastructure Layer
             services.AddScoped<IVideoStorage, S3VideoStorage>();
