@@ -7,7 +7,17 @@ variable "brokerpassword" {
   type        = string
 }
 
-variable "bucketName" {
+variable "awsAccessKeyId" {
+  description = "Secret passed from GitHub Actions"
+  type        = string
+}
+
+variable "awsSecretAccessKey" {
+  description = "Secret passed from GitHub Actions"
+  type        = string
+}
+
+variable "awsSessionToken" {
   description = "Secret passed from GitHub Actions"
   type        = string
 }

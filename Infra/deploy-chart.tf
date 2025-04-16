@@ -25,4 +25,16 @@ resource "helm_release" "upload" {
     name  = "rabbitmq.password"
     value = var.brokerpassword
   }
+  set {
+    name  = "aws.accessKeyId"
+    value = var.awsAccessKeyId
+  }
+  set {
+    name  = "aws.secretAccessKey"
+    value = var.awsSecretAccessKey
+  }
+  set {
+    name  = "aws.sessionToken"
+    value = var.awsSessionToken
+  }
 }

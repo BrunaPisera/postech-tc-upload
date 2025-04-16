@@ -22,3 +22,8 @@ rabbitmq:
 # Secret
 secret:
   name: secret
+
+aws:
+  accessKeyId: 
+  secretAccessKey: 
+  sessionToken: 
