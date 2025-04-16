@@ -52,7 +52,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: | 
           cd Infra 
-          terraform plan -var="brokerpassword=${{ secrets.BROKER_PASSWORD }}" -var="bucketName=videouploadtc" -no-color -input=false
+          terraform plan -var="brokerpassword=${{ secrets.BROKER_PASSWORD }}" -var="awsAccessKeyId=${{ secrets.AWS_ACCESS_KEY_ID }}" -var="awsSecretAccessKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -var="awsSessionToken=${{ secrets.AWS_SESSION_TOKEN }}" -no-color -input=false
         continue-on-error: true
 
       - name: Update Pull Request
@@ -93,4 +93,4 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: | 
           cd Infra 
-          terraform apply -var="brokerpassword=${{ secrets.BROKER_PASSWORD }}" -var="bucketName=videouploadtc" -auto-approve -input=false
+          terraform apply -var="brokerpassword=${{ secrets.BROKER_PASSWORD }}" -var="awsAccessKeyId=${{ secrets.AWS_ACCESS_KEY_ID }}" -var="awsSecretAccessKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -var="awsSessionToken=${{ secrets.AWS_SESSION_TOKEN }}" -auto-approve -input=false

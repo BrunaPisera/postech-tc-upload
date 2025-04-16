@@ -17,3 +17,9 @@ rabbitmq:
   password: 
   port: 5672
   virtualhost: xtpbliuz
+
+aws:
+  accessKeyId: 
+  secretAccessKey: 
+  sessionToken: 
+  bucketName: videouploadtc
