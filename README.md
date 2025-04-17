@@ -34,7 +34,6 @@ A aplicação segue a Arquitetura Limpa, que promove a separação de responsabi
 ## Tecnologias Utilizadas
  
 - **API Gateway**: Exposição da API.
-- **Amazon Cognito**: Autenticação de usuários.
 - **Amazon S3**: Armazenamento de vídeos.
 - **RabbitMQ (via CloudAMQP)**: Fila de mensagens para notificar o processamento.
 - **Kubernetes**: Orquestração de contêineres.
